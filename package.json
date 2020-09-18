@@ -1,0 +1,17 @@
+{
+  "name": "puppsy",
+  "version": "0.0.1",
+  "description": "Svelte serverside rendering with puppsy",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "svelte",
+    "serverside",
+    "ssr",
+    "SPA"
+  ],
+  "author": "Jens Hjalmarsson",
+  "license": "ISC"
+}
