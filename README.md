@@ -79,7 +79,7 @@ Since it's impossible to know when to start preloading we have to manually do so
 ```
 
 Since puppsy.promise is a __Promise__ you can use it with sveltes await syntax.
-```js
+```html
 <script>
   import puppsy from 'puppsy';
   // since puppsy.promise is a promise we can assign it to a variable
@@ -109,3 +109,32 @@ Since puppsy.promise is a __Promise__ you can use it with sveltes await syntax.
 ## When should i call puppsy.ready()?
 Refrain from calling ready in child components. The first occurence of ready will start the preloading and any promise after that would not be included. If you have a navigation structure like `home`, `work`, `about`, `contact`, these would be good topmost places to call ready from.
 
+# Puppsy starter template
+
+To get started with the starter template execute the following commands below in your terminal to download puppsy starter source files.
+
+```js
+npx degit hjalmar/puppsy_starter_template puppsy_starter_template
+cd puppsy_starter_template
+```
+
+## Frontend development
+Change directory to the frontend application, install all packages and run the dev server.
+```
+cd frontend-app
+npm install
+npm run dev
+```
+To access the dev server open your browser and go to http://localhost:5000
+
+## puppsy server 
+Open a new terminal window and change directory, install all packages and run the dev server. 
+
+```
+cd server
+npm install
+npm run dev
+```
+
+To access the dev server open your browser and go to http://localhost.
+This will be the entry point to the application.
