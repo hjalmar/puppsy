@@ -1,4 +1,4 @@
-import puppsy from './main.js';
+import puppsy from './lib.js';
 
 export default (element, props) => {
   let lastPrefetch = new Map();
