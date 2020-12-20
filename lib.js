@@ -30,7 +30,10 @@ const puppsy = new class Puppsy{
   }
   init(component, ...props){
     this.__init = true;
-    return new component(...props);
+    // if we are passing a component, initialize it
+    if(component){
+      return new component(...props);
+    }
   }
   __marked(state = 1){
     this.__state = state;
@@ -44,7 +47,7 @@ const puppsy = new class Puppsy{
   async ready(fn){
     // make sure we initialize init from our main script
     if(!this.__init){
-      throw new Error('puppsy not initialized!');
+      throw new Error('puppsy is not initialized!');
     }
     // if we already have loaded the page on the server no need to do anything more
     // since we only care about first load
@@ -83,7 +86,7 @@ const puppsy = new class Puppsy{
     this.__endpoints.set(key, {...ref, promise: new Promise((resolve) => resolve(value))});
     return this.__endpoints.get(key).promise;
   }
-  static(key, fn){
+  persist(key, fn){
     return this.__bind(key, fn, true);
   }
   promise(key, fn){
@@ -129,5 +132,11 @@ const puppsy = new class Puppsy{
   }
 }
 
+// exports
+const init = puppsy.init.bind(puppsy);
+const promise = puppsy.promise.bind(puppsy);
+const persist = puppsy.persist.bind(puppsy);
+const update = puppsy.update.bind(puppsy);
+
 export default puppsy;
-export const Init = puppsy.init.bind(puppsy);
+export { init, promise, persist, update };
