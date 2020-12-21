@@ -57,3 +57,30 @@ Since it's impossible to know when to start preloading we have to manually do so
     console.log('Server has preloaded the data!');
   });
 ```
+
+## Starter template
+```
+// clone the starter template
+npx degit hjalmar/puppsy/template <template>
+```
+
+Install the frontend and launch it as any other svelte app during development. Don't forget to build before hosting. It's perfectly fine to run both dev servers during development so the only thing you have to do to validate the server served app is to refresh the page. An error for the liveserver will occur which you can ignore since it's not injected after build. 
+```
+// install frontend
+cd <template>/frontend
+npm install
+npm run dev
+```
+
+The server is configured out of the box with the current locations and settings.
+```
+// install server
+cd <template>/server
+npm install
+npm run dev
+```
+
+Running the dev script enables some logging of the request which is turned of from the start script. To serve the host settings run the start script.
+```
+npm run start
+```
