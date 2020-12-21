@@ -1,0 +1,22 @@
+{
+  "name": "puppsy-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node server.js --dev",
+    "start": "node server.js"
+  },
+  "type": "module",
+  "author": "Jens Hjalmarsson",
+  "license": "ISC",
+  "dependencies": {
+    "express-http-proxy": "^1.6.2",
+    "http-proxy": "^1.18.1"
+  },
+  "devDependencies": {
+    "express": "^4.17.1",
+    "puppeteer": "^5.5.0"
+  }
+}
