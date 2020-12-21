@@ -7,7 +7,8 @@ export default {
     dev: {
       hostname: 'dev.local',
       port: 443,
-      cache: 10, // 0 seconds
+      cache: 0, // 0 seconds
+      // to remove ssl comment out the whole ssl block below, and don't forget to update allowedOrigin
       ssl: {
         key: '../dev.local.key',
         cert: '../dev.local.crt'
