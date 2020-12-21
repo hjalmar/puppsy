@@ -63,7 +63,7 @@ server.use(express.json());
 // handle all requests
 const request = async (req, res) => {
   const url = `${req.protocol}://${connection.hostname}:${connection.port}${req.url}`;
-  if(req.header('puppsy')){
+  if(req.header(config.id)){
     res.sendFile(path.join(__dirname, config.root, 'index.html'));
   }else{
     try{ 

@@ -1,5 +1,7 @@
 // server configuration
 export default {
+  // a crude randomized number as an identifier for the header being sent
+  id: String(Date.now() + Math.random()),
   // server details
   server: {
     dev: {

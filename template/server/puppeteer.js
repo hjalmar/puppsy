@@ -62,7 +62,7 @@ const loadURL = async ({ url, options = {}, ssr, dev }) => {
 
     // set custom ssr header
     const headers = request.headers();
-    headers['puppsy'] = Date.now();
+    headers[config.id] = Date.now();
     request.continue({
       headers
     });
