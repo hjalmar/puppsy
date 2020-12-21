@@ -1,75 +1,55 @@
-# NOTE: Early stage, proof of concept!
-Puppsy is currently a proof of concept. Be responsible and use more established methods of serverside rendering for your commercial applications.
-
 # Puppsy
-Svelte serverside rendering as a microservice.
+Svelte serverside rendering.
 ```
 npm i -D puppsy
 ```
 
+## What is puppsy?
+While puppsy is pure javascript and more or less only a wrapper around promises it can be used in any javascript project. It's existence is however purely related to enable serverside rendering in Svelte applications.
 
-## What is puppsy? 
-Puppsy is a promise based, serverside rendered, microservice that utilises googles puppeteer. The intention is to have a proxy server on top off the dynamic javascript application for that serverside rendered initial request.
+The goal is to quickly turn a frontend application and enable it to be serverside rendered.
 
-This means that you can take your svelte project and quickly turn it into a serverside rendered application without much extra work. 
-
+### Implementation 
+```
+init : Function 
+promise : Function(uniqueKey : String, promiseFunction(resolve, reject) : Function) -> Promise;
+persist : Function(uniqueKey : String, promiseFunction(resolve, reject) : Function) -> Promise;
+update : Function(uniqueKey : String, value : Any) : Promise;
+ready : Function(callback : Function) : void;
+```
 
 ## Initialize
+Make sure to initialize before bootstrapping your application
 ```js
-import App from './App.svelte';
-import { Init } from 'puppsy';
-
-// notice how we don't initialize a new 'App' instance here
-const app = Init(App, {
-  target: document.body
-});
-
-export default app;
+import puppsy from 'puppsy';
+puppsy.init();
 ```
 
 ## promises
-
 puppsy is built around promises. Create a promise by providing a unique key and the promise callback function.
 
 ```js
-puppsy.promise(uniqueKey : String, promiseFunction(resolve, reject) : Function);
-```
-
-Keep data static after initial load.
-```js
-puppsy.static(uniqueKey : String, promiseFunction(resolve, reject) : Function);
+// dynamic request, will execute promise on every occurence
+puppsy.promise(uniqueKey : String, promiseFunction(resolve, reject) : Function) : Promise;
+// Keep data static after initial load and will not be called again unless forced update of value with the update method
+puppsy.persist(uniqueKey : String, promiseFunction(resolve, reject) : Function) : Promise;
+// update value for key
+puppsy.update(uniqueKey : String, value : Any) : Promise;
 ```
 
 ```js
 import puppsy from 'puppsy';
-// todo list
-let todos = [];
-// promise function
-const fetchInitTodos = async (resolve, reject) => {
-  try{
-    // resolve array of fetch requests
-    resolve([
-      // fetch 3 todo items from placholder api
-      await fetchData(),
-      await fetchData(),
-      await fetchData(),
-    ]);
-  }catch(error){
-    // or reject it on error
-    reject({error: 'There was an error while performing a fetch request.'});
-  }
-};
-puppsy.promise('todos', fetchInitTodos)
-  .then(data => {
-    todos = [...todos, ...data];
-  })
-  .catch(error => {
-    // do something with the error
-    console.warn(error);
-  });
+
+// simulate a request with some delay
+const numbers = puppsy.promise('numbers', async (resolve, reject) => {
+  setTimeout(() => {
+    resolve([1,2,3,4,5,6,7]);
+  }, 3000);
+});
 ```
 
-Since it's impossible to know when to start preloading we have to manually do so by calling `puppsy.ready()`
+## When to call ready
+Since it's impossible to know when to start preloading we have to manually do so by calling `puppsy.ready()`.
 ```js
   // call ready after all puppsy promises
   puppsy.ready(() => {
@@ -77,64 +57,3 @@ Since it's impossible to know when to start preloading we have to manually do so
     console.log('Server has preloaded the data!');
   });
 ```
-
-Since puppsy.promise is a __Promise__ you can use it with sveltes await syntax.
-```html
-<script>
-  import puppsy from 'puppsy';
-  // since puppsy.promise is a promise we can assign it to a variable
-  // and use sveltes built-in await syntax
-  const promise = puppsy.promise('test', (resolve, reject) => {
-    resolve('puppsy.promise has been resolved!');
-  });
-
-  // call ready after all puppsy promises
-  puppsy.ready(() => {
-    // callback function for when the preloading is finished
-    console.log('Server has preloaded the data!');
-  });
-</script>
-
-<div>
-  <p>
-    {#await promise}
-      loading...
-    {:then result}
-      {result}
-    {/await}
-  </p>
-</div>
-```
-
-## When should i call puppsy.ready()?
-Refrain from calling ready in child components. The first occurence of ready will start the preloading and any promise after that would not be included. If you have a navigation structure like `home`, `work`, `about`, `contact`, these would be good topmost places to call ready from.
-
-# Puppsy starter template
-
-To get started with the starter template execute the following commands below in your terminal to download puppsy starter source files.
-
-```js
-npx degit hjalmar/puppsy_starter_template puppsy_starter_template
-cd puppsy_starter_template
-```
-
-## Frontend development
-Change directory to the frontend application, install all packages and run the dev server.
-```
-cd frontend-app
-npm install
-npm run dev
-```
-To access the dev server open your browser and go to http://localhost:5000
-
-## puppsy server 
-Open a new terminal window and change directory, install all packages and run the dev server. 
-
-```
-cd server
-npm install
-npm run dev
-```
-
-To access the dev server open your browser and go to http://localhost.
-This will be the entry point to the application.
