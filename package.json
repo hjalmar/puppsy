@@ -1,6 +1,6 @@
 {
   "name": "puppsy",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Svelte serverside rendering with puppsy",
   "main": "main.js",
   "scripts": {
