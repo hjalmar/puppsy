@@ -4,7 +4,15 @@ export default {
   id: String(Date.now() + Math.random()),
   // server details
   server: {
+    // the, fk ssl option ¯\_(ツ)_/¯
+    // dev: {
+    //   hostname: 'localhost',
+    //   port: 8080,
+    //   cache: 0, // 0 seconds
+    // },
     dev: {
+      // change your host entry for 127.0.0.1
+      // 127.0.0.1        dev.local
       hostname: 'dev.local',
       port: 443,
       cache: 0, // 0 seconds
@@ -27,7 +35,7 @@ export default {
   // root frontend location
   root: '../frontend/public/',
   // only allow origins.
-  allowOrigin: ['https://dev.local*'],
+  allowOrigin: ['https://dev.local*', 'http://localhost*'],
   // SSR, which types of requests should be allowed?
   allowlist: [
     'document', 
