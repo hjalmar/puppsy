@@ -3,9 +3,10 @@
 
   // promise callback
   const fn = (resolve, reject) => {
-    setTimeout(() => {
-      resolve(Math.floor(Math.random() * 100));
-    }, 2000);
+    // setTimeout(() => {
+    //   resolve(Math.floor(Math.random() * 100));
+    // }, 2000);
+    resolve(Math.floor(Math.random() * 100));
   };
 
   // dynamic data

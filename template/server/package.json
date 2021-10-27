@@ -12,11 +12,7 @@
   "author": "Jens Hjalmarsson",
   "license": "ISC",
   "dependencies": {
-    "express-http-proxy": "^1.6.2",
-    "http-proxy": "^1.18.1"
-  },
-  "devDependencies": {
     "express": "^4.17.1",
-    "puppeteer": "^5.5.0"
+    "puppeteer": "^10.4.0"
   }
 }
